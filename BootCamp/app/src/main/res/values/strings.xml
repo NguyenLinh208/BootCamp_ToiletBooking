@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Toilet Booking</string>
+    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
+    <string name="demo_external_activity">Demo External Activity</string>
+    <string name="demo_collection">Demo Collection</string>
+    <string name="booking">予約</string>
+    <string name="status">状況</string>
+    <string name="input_title">このトイルは使用中です。</string>
+
+    <string-array name="action">
+        <item>並ぶ</item>
+        <item>開いている時通知</item>
+    </string-array>
+
+    <string name="ok">はい</string>
+    <string name="cancel">キャンセル</string>
+
+    <string name="isUsing">使用中</string>
+    <string name="empty">使用中</string>
+    <string name="option">オプション</string>
+</resources>
