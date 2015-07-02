@@ -1,4 +1,4 @@
-package com.example.android.effectivenavigation.activity;
+package com.example.android.toiletbooking.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.TextView;
 import android.content.DialogInterface;
-import com.example.android.effectivenavigation.R;
+import com.example.android.toiletbooking.R;
 
 /**
  * Created by usr0200475 on 15/07/01.
@@ -18,6 +18,7 @@ public class MyCounter extends Activity{
     private Handler myHandler = new Handler();
     long timeInMillies = 0L;
     long timeLimit = 20000 ;
+    AlertDialog.Builder alert;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MyCounter extends Activity{
         myHandler.postDelayed(updateTimerMethod, 0);
         this.setFinishOnTouchOutside(true);
 
+        alert = new AlertDialog.Builder(MyCounter.this);
     }
 
     @Override
@@ -49,21 +51,17 @@ public class MyCounter extends Activity{
             myHandler.postDelayed(this, 0);
             if (timeInMillies > timeLimit){
                 StopCounter();
-                onStop();
             }
         }
     };
 
     public void StopCounter(){
         myHandler.removeCallbacks(updateTimerMethod);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(MyCounter.this);
-        builder.setNeutralButton("SKIP", new DialogInterface.OnClickListener() {
+        alert.setNeutralButton("SKIP", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 onBackPressed();
             }
         });
-        builder.setTitle("警告").setMessage("時間切れです").show();
+        alert.setTitle("警告").setMessage("時間切れです").show();
     }
-
-
 }

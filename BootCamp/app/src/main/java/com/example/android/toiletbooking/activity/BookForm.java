@@ -1,4 +1,4 @@
-package com.example.android.effectivenavigation.activity;
+package com.example.android.toiletbooking.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
-import com.example.android.effectivenavigation.R;
-import com.example.android.effectivenavigation.fragment.ToiletBooking;
+import com.example.android.toiletbooking.R;
+import com.example.android.toiletbooking.fragment.ToiletBooking;
 
 /**
  * Created by usr0200475 on 15/06/30.

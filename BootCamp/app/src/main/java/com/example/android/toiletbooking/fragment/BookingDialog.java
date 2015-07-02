@@ -1,4 +1,4 @@
-package com.example.android.effectivenavigation.fragment;
+package com.example.android.toiletbooking.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

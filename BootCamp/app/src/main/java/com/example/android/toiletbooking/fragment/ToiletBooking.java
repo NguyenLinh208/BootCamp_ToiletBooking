@@ -1,4 +1,4 @@
-package com.example.android.effectivenavigation.fragment;
+package com.example.android.toiletbooking.fragment;
 
 import android.content.Intent;
 import android.support.v4.app.ListFragment;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.android.effectivenavigation.R;
-import com.example.android.effectivenavigation.activity.MyCounter;
-import com.example.android.effectivenavigation.model.Toilet;
+import com.example.android.toiletbooking.R;
+import com.example.android.toiletbooking.activity.MyCounter;
+import com.example.android.toiletbooking.model.Toilet;
 
 import java.util.ArrayList;
 

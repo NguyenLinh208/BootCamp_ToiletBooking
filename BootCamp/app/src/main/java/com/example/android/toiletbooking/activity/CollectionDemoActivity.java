@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.effectivenavigation.activity;
+package com.example.android.toiletbooking.activity;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -32,7 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.effectivenavigation.R;
+import com.example.android.toiletbooking.R;
 
 public class CollectionDemoActivity extends FragmentActivity {
     MyPageAdapter mDemoCollectionPagerAdapter;

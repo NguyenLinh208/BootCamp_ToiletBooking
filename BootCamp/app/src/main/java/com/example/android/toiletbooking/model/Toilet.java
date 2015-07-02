@@ -1,4 +1,4 @@
-package com.example.android.effectivenavigation.model;
+package com.example.android.toiletbooking.model;
 
 import java.io.Serializable;
 

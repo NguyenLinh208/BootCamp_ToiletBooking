@@ -1,21 +1,17 @@
-package com.example.android.effectivenavigation.activity;
+package com.example.android.toiletbooking.activity;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.android.effectivenavigation.fragment.InUsingToilets;
-import com.example.android.effectivenavigation.fragment.ToiletBooking;
-import com.example.android.effectivenavigation.R;
+import com.example.android.toiletbooking.fragment.InUsingToilets;
+import com.example.android.toiletbooking.fragment.ToiletBooking;
+import com.example.android.toiletbooking.R;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
