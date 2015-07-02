@@ -29,7 +29,6 @@ public class MyCounter extends Activity{
         startTime = SystemClock.uptimeMillis();
         myHandler.postDelayed(updateTimerMethod, 0);
         this.setFinishOnTouchOutside(true);
-
         alert = new AlertDialog.Builder(MyCounter.this);
     }
 
@@ -62,6 +61,9 @@ public class MyCounter extends Activity{
                 onBackPressed();
             }
         });
-        alert.setTitle("警告").setMessage("時間切れです").show();
+        if (! (MyCounter.this).isFinishing()) {
+            alert.setTitle("警告").setMessage("時間切れです").show();
+        }
+
     }
 }
