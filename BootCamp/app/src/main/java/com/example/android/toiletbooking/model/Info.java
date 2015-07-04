@@ -12,10 +12,12 @@ import java.io.Serializable;
     private static final long serialVersionUID = 1L;
     private String number;
     private String name;
-    public Info(String number, String name) {
+    private String floor;
+    public Info(String number, String name, String floor) {
         super();
         this.number = number;
         this.name = name;
+        this.floor = floor;
     }
     public Info() {
         super();
@@ -32,9 +34,15 @@ import java.io.Serializable;
     public void setName(String name) {
         this.name = name;
     }
+    public String getFloor() {
+        return floor;
+    }
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return this.number+" - "+this.name;
+        return this.name;
     }
 }
