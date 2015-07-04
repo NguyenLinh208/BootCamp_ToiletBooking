@@ -75,14 +75,17 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
+        int pos = position;
+        if (pos % 4 == 0 ){
 
-        // do something
-        Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-        showDialog("確認画面","予約でよろしいですか？",1);
+        } else {
+            // do something
+            Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+            showDialog("確認画面", "予約でよろしいですか？", 1);
+        }
     }
 
     public void showDialog(String title, String message, int type){

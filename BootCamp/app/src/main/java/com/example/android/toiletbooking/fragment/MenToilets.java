@@ -80,21 +80,24 @@ public class MenToilets extends Fragment implements AdapterView.OnItemClickListe
                             long id) {
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
+        int pos = position;
+        if (pos % 4 == 0) {
 
-        // do something
-        Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+        } else {
+            // do something
+            Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getActivity(), BookForm.class);
-        String status;
-        if (listToilets.get(position).isStatus()){
-            status = "使用中";
+            Intent intent = new Intent(getActivity(), BookForm.class);
+            String status;
+            if (listToilets.get(position).isStatus()) {
+                status = "使用中";
+            } else status = "使用できます";
+
+            String sendData = listToilets.get(position).getName() + " " + status + "　？人待ち中";
+            intent.putExtra("send", sendData);
+            startActivity(intent);
+            Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
         }
-        else status =  "使用できます";
-
-        String sendData = listToilets.get(position).getName() + " " + status + "　？人待ち中";
-        intent.putExtra("send",sendData);
-        startActivity(intent);
-        Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
     }
 }
 
