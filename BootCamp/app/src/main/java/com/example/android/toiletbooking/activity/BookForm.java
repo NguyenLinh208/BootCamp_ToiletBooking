@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import com.example.android.toiletbooking.R;
-import com.example.android.toiletbooking.fragment.ToiletBooking;
+import com.example.android.toiletbooking.fragment.WomenToilets;
 
 /**
  * Created by usr0200475 on 15/06/30.
@@ -93,7 +93,7 @@ public class BookForm extends Activity {
         Bundle bundle = new Bundle();
         bundle.putString("edttext", "USING");
         // set Fragmentclass Arguments
-        ToiletBooking fragobj = new ToiletBooking();
+        WomenToilets fragobj = new WomenToilets();
         fragobj.setArguments(bundle);
 
     }

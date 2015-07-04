@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.example.android.toiletbooking.fragment.InUsingToilets;
-import com.example.android.toiletbooking.fragment.ToiletBooking;
+import com.example.android.toiletbooking.fragment.MenToilets;
+import com.example.android.toiletbooking.fragment.WomenToilets;
 import com.example.android.toiletbooking.R;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -75,9 +75,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return new InUsingToilets();
+                    return new MenToilets();
                 default:
-                    return new ToiletBooking();
+                    return new WomenToilets();
             }
         }
 

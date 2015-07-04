@@ -14,21 +14,28 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int ic_floor=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int ic_toilet=0x7f020002;
     }
     public static final class id {
+        public static final int book_button=0x7f06000b;
         public static final int cancel_button=0x7f060004;
-        public static final int demo_collection_button=0x7f060009;
-        public static final int demo_external_activity=0x7f06000a;
+        public static final int demo_collection_button=0x7f06000c;
+        public static final int demo_external_activity=0x7f06000d;
+        public static final int floor_id=0x7f060008;
+        public static final int gridView=0x7f060007;
         public static final int input_form_title=0x7f060000;
+        public static final int ivIcon=0x7f06000e;
         public static final int pager=0x7f060005;
         public static final int pager_title_strip=0x7f060006;
         public static final int selected_item=0x7f060002;
         public static final int send_button=0x7f060003;
         public static final int spinner1=0x7f060001;
-        public static final int status_text=0x7f060008;
-        public static final int text1=0x7f060007;
-        public static final int textTimer=0x7f06000b;
+        public static final int text1=0x7f06000a;
+        public static final int textTimer=0x7f060010;
+        public static final int toilet=0x7f060009;
+        public static final int tvTitle=0x7f06000f;
     }
     public static final class layout {
         public static final int activity_book_form=0x7f030000;
@@ -38,7 +45,8 @@ public final class R {
         public static final int fragment_list_toilet_not_use=0x7f030004;
         public static final int fragment_list_toilet_using=0x7f030005;
         public static final int fragment_section_launchpad=0x7f030006;
-        public static final int timer=0x7f030007;
+        public static final int gridview_item=0x7f030007;
+        public static final int timer=0x7f030008;
     }
     public static final class string {
         public static final int app_name=0x7f050000;

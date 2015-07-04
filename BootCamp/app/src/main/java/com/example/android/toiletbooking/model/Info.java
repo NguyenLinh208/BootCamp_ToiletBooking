@@ -43,6 +43,6 @@ import java.io.Serializable;
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return this.floor + ":" +this.name;
+        return this.name;
     }
 }
