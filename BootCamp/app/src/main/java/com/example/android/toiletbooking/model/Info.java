@@ -13,11 +13,13 @@ import java.io.Serializable;
     private String number;
     private String name;
     private String floor;
-    public Info(String number, String name, String floor) {
+    private int waiting;
+    public Info(String number, String name, String floor, int waiting) {
         super();
         this.number = number;
         this.name = name;
         this.floor = floor;
+        this.waiting = waiting;
     }
     public Info() {
         super();
@@ -34,12 +36,19 @@ import java.io.Serializable;
     public void setName(String name) {
         this.name = name;
     }
-    public String getFloor() {
-        return floor;
-    }
+    public String getFloor() { return floor; }
     public void setFloor(String floor) {
         this.floor = floor;
     }
+
+    public int getWaiting() {
+        return waiting;
+    }
+
+    public void setWaiting(int waiting) {
+        this.waiting = waiting;
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

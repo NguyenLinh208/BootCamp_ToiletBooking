@@ -49,6 +49,7 @@ public class MenToilets extends Fragment implements AdapterView.OnItemClickListe
                 toilet.setName("Toilet" + j);
                 toilet.setNumber(Integer.toString(j));
                 toilet.setFloor(i + "階");
+                toilet.setWaiting(1);
                 toilet.setStatus(false);
                 listToilets.add(toilet);
                 mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));

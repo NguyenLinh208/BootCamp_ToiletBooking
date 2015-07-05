@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.toiletbooking.R;
+import com.example.android.toiletbooking.activity.BookForm;
 import com.example.android.toiletbooking.activity.MyCounter;
 import com.example.android.toiletbooking.model.GridViewAdapter;
 import com.example.android.toiletbooking.model.GridViewItem;
@@ -49,7 +51,7 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
                 toilet.setNumber(Integer.toString(j));
                 toilet.setFloor(i + "階");
                 toilet.setStatus(false);
-               // if (!toilet.isStatus()) textView.setText("使用可能");
+                toilet.setWaiting(0);
                 listToilets.add(toilet);
                 mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
             }
@@ -83,8 +85,20 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
 
         } else {
             // do something
-            Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-            showDialog("確認画面", "予約でよろしいですか？", 1);
+            if (listToilets.get(pos).getWaiting() == 0) {
+                Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+                showDialog("確認画面", "予約でよろしいですか？", 1);
+            } else {
+                Intent intent = new Intent(getActivity(), BookForm.class);
+                String status;
+                if (listToilets.get(position).isStatus()) {
+                    status = "使用中";
+                } else status = "使用できます";
+                String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() +"人待ち中";
+                intent.putExtra("send", sendData);
+                startActivity(intent);
+                Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
+            }
         }
     }
 
