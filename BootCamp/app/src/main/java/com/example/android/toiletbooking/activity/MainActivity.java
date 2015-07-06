@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         {
             Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
 
-            MainActivity.this.mHandler.postDelayed(m_Runnable,20000);
+            MainActivity.this.mHandler.postDelayed(m_Runnable,10000);
         }
 
     };
