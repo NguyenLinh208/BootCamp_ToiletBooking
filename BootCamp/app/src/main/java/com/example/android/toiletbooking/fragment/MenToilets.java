@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.android.toiletbooking.R;
 import com.example.android.toiletbooking.activity.BookForm;
+import com.example.android.toiletbooking.activity.MyCounter;
 import com.example.android.toiletbooking.model.GridViewAdapter;
 import com.example.android.toiletbooking.model.GridViewItem;
 import com.example.android.toiletbooking.model.Toilet;
@@ -28,8 +29,7 @@ import java.util.List;
 /**
  * Created by usr0200475 on 15/06/29.
  */
-public class MenToilets extends Fragment implements AdapterView.OnItemClickListener {
-
+public class MenToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener {
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
     private List<GridViewItem> mItems;    // GridView items list
@@ -49,15 +49,18 @@ public class MenToilets extends Fragment implements AdapterView.OnItemClickListe
                 toilet.setName("Toilet" + j);
                 toilet.setNumber(Integer.toString(j));
                 toilet.setFloor(i + "階");
+                toilet.setStatus(true);
                 toilet.setWaiting(1);
-                toilet.setStatus(false);
                 listToilets.add(toilet);
-                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
+                if (toilet.getWaiting() == 0) {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
+                } else {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), toilet.toString()));
+                }
             }
         }
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,29 +80,56 @@ public class MenToilets extends Fragment implements AdapterView.OnItemClickListe
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
         int pos = position;
-        if (pos % 4 == 0) {
+        if (pos % 4 == 0 ){
 
         } else {
             // do something
-            Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(getActivity(), BookForm.class);
-            String status;
-            if (listToilets.get(position).isStatus()) {
-                status = "使用中";
-            } else status = "使用できます";
-
-            String sendData = listToilets.get(position).getName() + " " + status + "　？人待ち中";
-            intent.putExtra("send", sendData);
-            startActivity(intent);
-            Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
+            if (listToilets.get(pos).getWaiting() == 0) {
+                Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+                showDialog("確認画面", "予約でよろしいですか？", 1);
+            } else {
+                Intent intent = new Intent(getActivity(), BookForm.class);
+                String status;
+                if (listToilets.get(position).isStatus()) {
+                    status = "使用中";
+                } else status = "使用できます";
+                String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() +"人待ち中";
+                intent.putExtra("send", sendData);
+                startActivity(intent);
+                Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
+            }
         }
     }
+
+    public void showDialog(String title, String message, int type){
+        BookingDialog newFragment = BookingDialog.newInstance(title, message, type);
+        // リスナーセット
+        newFragment.setDialogListener(this);
+        newFragment.setCancelable(false);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
+    /**
+     * OKボタンをおした時
+     */
+    @Override
+    public void doPositiveClick() {
+        Intent intent = new Intent(getActivity(), MyCounter.class);
+        startActivity(intent);
+    }
+
+    /**
+     * NGボタンをおした時
+     */
+    @Override
+    public void doNegativeClick() {
+
+    }
+
 }
 
 

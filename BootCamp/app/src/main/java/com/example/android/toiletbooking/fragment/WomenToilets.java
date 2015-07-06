@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,9 @@ import com.example.android.toiletbooking.model.GridViewItem;
 import com.example.android.toiletbooking.model.Toilet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by usr0200475 on 15/06/29.
@@ -42,6 +45,7 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
 
         // initialize the items list
         mItems = new ArrayList<GridViewItem>();
+
         Resources resources = getResources();
         for (int i = 1; i <= 10; i++) {
             mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階"));
@@ -53,7 +57,11 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
                 toilet.setStatus(false);
                 toilet.setWaiting(0);
                 listToilets.add(toilet);
-                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
+                if (toilet.getWaiting() == 0) {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
+                } else {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), toilet.toString()));
+                }
             }
         }
 
@@ -81,23 +89,37 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
         int pos = position;
-        if (pos % 4 == 0 ){
 
-        } else {
-            // do something
-            if (listToilets.get(pos).getWaiting() == 0) {
-                Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-                showDialog("確認画面", "予約でよろしいですか？", 1);
-            } else {
-                Intent intent = new Intent(getActivity(), BookForm.class);
-                String status;
-                if (listToilets.get(position).isStatus()) {
-                    status = "使用中";
-                } else status = "使用できます";
-                String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() +"人待ち中";
-                intent.putExtra("send", sendData);
-                startActivity(intent);
-                Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
+        //Floorの位置の場合
+        switch (pos % 4) {
+            case (0): {
+                break;
+            }
+            default: {
+
+                switch (listToilets.get(pos).getWaiting()) {
+                    case (0):{
+                        Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+                        listToilets.get(position).setStatus(true);
+                        //Counterを起動する
+                        Intent intent = new Intent(getActivity(), MyCounter.class);
+                        startActivity(intent);
+                        // showDialog("確認画面", "予約でよろしいですか？", 1);
+                        break;
+                     }
+                    default:{
+                        Intent intent = new Intent(getActivity(), BookForm.class);
+                        String status;
+                        if (listToilets.get(position).isStatus()) {
+                            status = "使用中";
+                        } else status = "使用できます";
+
+                        String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() + "人待ち中";
+                        intent.putExtra("send", sendData);
+                        startActivity(intent);
+                        Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
+                    }
+                 }
             }
         }
     }
