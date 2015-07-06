@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.TextView;
 import android.content.DialogInterface;
 import com.example.android.toiletbooking.R;
@@ -18,6 +19,7 @@ public class MyCounter extends Activity{
     private Handler myHandler = new Handler();
     long timeInMillies = 0L;
     long timeLimit = 20000 ;
+    long countTime = 0L;
     AlertDialog.Builder alert;
 
     @Override
@@ -28,21 +30,20 @@ public class MyCounter extends Activity{
         textTimer = (TextView) findViewById(R.id.textTimer);
         startTime = SystemClock.uptimeMillis();
         myHandler.postDelayed(updateTimerMethod, 0);
-        this.setFinishOnTouchOutside(true);
+        this.setFinishOnTouchOutside(false);
         alert = new AlertDialog.Builder(MyCounter.this);
-    }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    }
+    public void onClickCancelButton(View view){
+       finish();
     }
 
     private Runnable updateTimerMethod = new Runnable() {
 
         public void run() {
             timeInMillies = SystemClock.uptimeMillis() - startTime;
-
-            int seconds = (int) (timeInMillies / 1000);
+            countTime = timeLimit - timeInMillies;
+            int seconds = (int) (countTime / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
             textTimer.setText("" + minutes + ":"

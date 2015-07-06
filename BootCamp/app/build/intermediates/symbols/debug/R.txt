@@ -2,6 +2,7 @@ int array action 0x7f040000
 int drawable ic_floor 0x7f020000
 int drawable ic_launcher 0x7f020001
 int drawable ic_toilet 0x7f020002
+int drawable ic_toilet_using 0x7f020003
 int id book_button 0x7f06000b
 int id cancel_button 0x7f060004
 int id demo_collection_button 0x7f06000c
