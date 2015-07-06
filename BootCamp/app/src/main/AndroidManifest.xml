@@ -17,7 +17,7 @@
         </activity>
 
         <activity android:name="com.example.android.toiletbooking.activity.CollectionDemoActivity" android:label="@string/demo_collection" />
-        <activity android:name="com.example.android.toiletbooking.activity.BookForm" android:label="入力画面" android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity android:name=".activity.WaitingFormActivity" android:label="入力画面" android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity android:name="com.example.android.toiletbooking.activity.MyCounter" android:label="Counter" android:theme="@android:style/Theme.Holo.Light.Dialog" />
 
     </application>
