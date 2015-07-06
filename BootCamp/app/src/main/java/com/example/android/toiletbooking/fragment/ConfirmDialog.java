@@ -9,11 +9,11 @@ import android.content.DialogInterface;
  * Created by usr0200475 on 15/07/01.
  */
 
-public class BookingDialog extends DialogFragment {
+public class ConfirmDialog extends DialogFragment {
 
     private DialogListener listener = null;
-    public static BookingDialog newInstance(String title, String message, int type){
-        BookingDialog instance = new BookingDialog();
+    public static ConfirmDialog newInstance(String title, String message, int type){
+        ConfirmDialog instance = new ConfirmDialog();
 
         // ダイアログに渡すパラメータはBundleにまとめる
         Bundle arguments = new Bundle();

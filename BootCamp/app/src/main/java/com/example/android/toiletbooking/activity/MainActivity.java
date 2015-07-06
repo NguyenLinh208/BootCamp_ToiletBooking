@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.example.android.toiletbooking.fragment.WomenToilets;
+import com.example.android.toiletbooking.fragment.ListToilets;
 import com.example.android.toiletbooking.R;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         {
             Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
 
-            MainActivity.this.mHandler.postDelayed(m_Runnable,10000);
+            MainActivity.this.mHandler.postDelayed(m_Runnable,1000);
         }
 
     };
@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public Fragment getItem(int i) {
-            return new WomenToilets();
+            return new ListToilets();
         }
 
         @Override

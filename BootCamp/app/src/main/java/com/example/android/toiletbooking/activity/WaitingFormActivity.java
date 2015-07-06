@@ -1,6 +1,7 @@
 package com.example.android.toiletbooking.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import com.example.android.toiletbooking.R;
-import com.example.android.toiletbooking.fragment.WomenToilets;
+import com.example.android.toiletbooking.fragment.ListToilets;
+import com.example.android.toiletbooking.model.Toilet;
 
 /**
  * Created by usr0200475 on 15/06/30.
  */
-public class BookForm extends Activity {
+public class WaitingFormActivity extends Activity {
 
     public static final int WANT_TO_BOOKING = 0;
     public static final int RESQUEST_SEND_NOTI_AFTER = 1;
@@ -24,16 +26,19 @@ public class BookForm extends Activity {
     public static final boolean WATING = true;
     private boolean status;
     Spinner spinner;
+    AlertDialog.Builder alert;
+    Toilet receiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_form);
+        alert = new AlertDialog.Builder(WaitingFormActivity.this);
 
         Intent intent = getIntent();
-        String reiciveData = intent.getStringExtra("send");
+        receiveData = (Toilet)intent.getSerializableExtra("send");
         TextView textView = (TextView)findViewById(R.id.input_form_title);
-        textView.setText(reiciveData);
+        textView.setText(receiveData.getName() + "使用中 " + receiveData.getWaiting() + "人待ちです");
 
 
         spinner = (Spinner) findViewById(R.id.spinner1);
@@ -62,6 +67,7 @@ public class BookForm extends Activity {
                         Toast.LENGTH_SHORT).show();
             }
 
+            //unused
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Toast.makeText(getApplicationContext(), "nothing", Toast.LENGTH_SHORT).show();
@@ -74,10 +80,13 @@ public class BookForm extends Activity {
         switch (selectedPos){
             case WANT_TO_BOOKING:
                 status = BOOKED;
+                receiveData.setWaiting(receiveData.getWaiting()+1);
+                alert.setTitle("並びました!").setMessage("あなたは"+receiveData.getWaiting()+"番目です").show();
                 sendToiletStatus();
-                Intent intent = new Intent(BookForm.this,MyCounter.class);
-                finish();
-                startActivity(intent);
+  //              finish();
+//                Intent intent = new Intent(WaitingFormActivity.this,MyCounter.class);
+//                finish();
+//                startActivity(intent);
                 break;
             case RESQUEST_SEND_NOTI_AFTER:
                 finish();
@@ -93,7 +102,7 @@ public class BookForm extends Activity {
         Bundle bundle = new Bundle();
         bundle.putString("edttext", "USING");
         // set Fragmentclass Arguments
-        WomenToilets fragobj = new WomenToilets();
+        ListToilets fragobj = new ListToilets();
         fragobj.setArguments(bundle);
 
     }

@@ -2,40 +2,32 @@ package com.example.android.toiletbooking.fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.toiletbooking.R;
-import com.example.android.toiletbooking.activity.BookForm;
+import com.example.android.toiletbooking.activity.WaitingFormActivity;
 import com.example.android.toiletbooking.activity.MyCounter;
 import com.example.android.toiletbooking.model.GridViewAdapter;
 import com.example.android.toiletbooking.model.GridViewItem;
 import com.example.android.toiletbooking.model.Toilet;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
  * Created by usr0200475 on 15/06/29.
  */
-public class WomenToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener{
+public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener{
 
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
@@ -53,18 +45,16 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
             mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階"));
             for (int j = 1; j <= 3; j++) {
                 Toilet toilet = new Toilet();
-                toilet.setName("Toilet" + j);
+                toilet.setName("WC" + j);
                 toilet.setNumber(Integer.toString(j));
                 toilet.setFloor(i);
                 toilet.setStatus(getRandomBoolean());
-                toilet.setWaiting((int)(Math.random()*10));
+                if (toilet.isStatus()) {
+                    toilet.setWaiting(2);
+                } else toilet.setWaiting(0);
                 listToilets.add(toilet);
-                if (toilet.getWaiting() == 0) {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
-                } else {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
-
-                }
+                String title = toilet.getName() + "-" + toilet.getWaiting() + "人待ち";
+                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), title));
             }
         }
 
@@ -74,7 +64,7 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // inflate the root view of the fragment
-        View fragmentView = inflater.inflate(R.layout.fragment_list_toilet_not_use, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_list_toilet, container, false);
 
         // initialize the adapter
         mAdapter = new GridViewAdapter(getActivity(), mItems,listToilets);
@@ -105,22 +95,16 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
                     case (0):{
                         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
                         listToilets.get(toiletPositionNumber).setStatus(true);
-                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), listToilets.get(toiletPositionNumber).toString())));
-                        view.setBackgroundColor(Color.GRAY);
-                        //Counterを起動する
+                       // mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), listToilets.get(toiletPositionNumber).toString())));
+                        listToilets.get(toiletPositionNumber).setStatus(true);
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
                         // showDialog("確認画面", "予約でよろしいですか？", 1);
                         break;
                      }
                     default:{
-                        Intent intent = new Intent(getActivity(), BookForm.class);
-                        String status;
-                        if (listToilets.get(toiletPositionNumber).isStatus()) {
-                            status = "使用中";
-                        } else status = "使用できます";
-
-                        String sendData = listToilets.get(toiletPositionNumber).getName() + " " + status + listToilets.get(toiletPositionNumber).getWaiting() + " 人待ち中";
+                        Intent intent = new Intent(getActivity(), WaitingFormActivity.class);
+                        Toilet sendData = listToilets.get(toiletPositionNumber);
                         intent.putExtra("send", sendData);
                         startActivity(intent);
                         Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
@@ -131,7 +115,7 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
     }
 
     public void showDialog(String title, String message, int type){
-        BookingDialog newFragment = BookingDialog.newInstance(title, message, type);
+        ConfirmDialog newFragment = ConfirmDialog.newInstance(title, message, type);
         // リスナーセット
         newFragment.setDialogListener(this);
         newFragment.setCancelable(false);
