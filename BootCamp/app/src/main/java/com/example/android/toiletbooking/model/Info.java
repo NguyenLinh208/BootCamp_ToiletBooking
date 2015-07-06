@@ -12,9 +12,9 @@ import java.io.Serializable;
     private static final long serialVersionUID = 1L;
     private String number;
     private String name;
-    private String floor;
+    private int floor;
     private int waiting;
-    public Info(String number, String name, String floor, int waiting) {
+    public Info(String number, String name, int floor, int waiting) {
         super();
         this.number = number;
         this.name = name;
@@ -36,8 +36,8 @@ import java.io.Serializable;
     public void setName(String name) {
         this.name = name;
     }
-    public String getFloor() { return floor; }
-    public void setFloor(String floor) {
+    public int getFloor() { return floor; }
+    public void setFloor(int floor) {
         this.floor = floor;
     }
 

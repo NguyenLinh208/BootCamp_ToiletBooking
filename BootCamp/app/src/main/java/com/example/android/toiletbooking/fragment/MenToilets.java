@@ -32,6 +32,7 @@ import java.util.List;
 public class MenToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener {
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
+
     private List<GridViewItem> mItems;    // GridView items list
     private GridViewAdapter mAdapter;    // GridView adapter
 
@@ -48,7 +49,7 @@ public class MenToilets extends Fragment implements DialogListener,AdapterView.O
                 Toilet toilet = new Toilet();
                 toilet.setName("Toilet" + j);
                 toilet.setNumber(Integer.toString(j));
-                toilet.setFloor(i + "階");
+                toilet.setFloor(i);
                 toilet.setStatus(true);
                 toilet.setWaiting(1);
                 listToilets.add(toilet);
@@ -84,17 +85,18 @@ public class MenToilets extends Fragment implements DialogListener,AdapterView.O
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
         int pos = position;
+        int toiletPositionNumber = pos - pos/4;
         if (pos % 4 == 0 ){
 
         } else {
             // do something
-            if (listToilets.get(pos).getWaiting() == 0) {
+            if (listToilets.get(toiletPositionNumber).getWaiting() == 0) {
                 Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
                 showDialog("確認画面", "予約でよろしいですか？", 1);
             } else {
                 Intent intent = new Intent(getActivity(), BookForm.class);
                 String status;
-                if (listToilets.get(position).isStatus()) {
+                if (listToilets.get(toiletPositionNumber).isStatus()) {
                     status = "使用中";
                 } else status = "使用できます";
                 String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() +"人待ち中";

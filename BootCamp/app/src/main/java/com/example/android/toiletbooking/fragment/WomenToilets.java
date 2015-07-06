@@ -2,6 +2,8 @@ package com.example.android.toiletbooking.fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
@@ -39,13 +41,14 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
     private List<GridViewItem> mItems;    // GridView items list
     private GridViewAdapter mAdapter;    // GridView adapter
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // initialize the items list
         mItems = new ArrayList<GridViewItem>();
-
         Resources resources = getResources();
         for (int i = 1; i <= 10; i++) {
             mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階"));
@@ -53,14 +56,17 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
                 Toilet toilet = new Toilet();
                 toilet.setName("Toilet" + j);
                 toilet.setNumber(Integer.toString(j));
-                toilet.setFloor(i + "階");
+                toilet.setFloor(i);
                 toilet.setStatus(false);
                 toilet.setWaiting(0);
+
+//                toilet.setStatus(true);
+//                toilet.setWaiting(5);
                 listToilets.add(toilet);
                 if (toilet.getWaiting() == 0) {
                     mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
                 } else {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), toilet.toString()));
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), toilet.toString()));
                 }
             }
         }
@@ -89,18 +95,21 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
         // retrieve the GridView item
         GridViewItem item = mItems.get(position);
         int pos = position;
-
+        int toiletPositionNumber = pos - pos/4  -1;
+        int check = pos%4;
+        Resources resources = getResources();
         //Floorの位置の場合
-        switch (pos % 4) {
+        switch (check) {
             case (0): {
                 break;
             }
             default: {
-
-                switch (listToilets.get(pos).getWaiting()) {
+                switch (listToilets.get(toiletPositionNumber).getWaiting()) {
                     case (0):{
                         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-                        listToilets.get(position).setStatus(true);
+                        listToilets.get(toiletPositionNumber).setStatus(true);
+                        mItems.set(position,(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), listToilets.get(toiletPositionNumber).toString())));
+                        view.setBackgroundColor(Color.GRAY);
                         //Counterを起動する
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
@@ -110,11 +119,11 @@ public class WomenToilets extends Fragment implements DialogListener,AdapterView
                     default:{
                         Intent intent = new Intent(getActivity(), BookForm.class);
                         String status;
-                        if (listToilets.get(position).isStatus()) {
+                        if (listToilets.get(toiletPositionNumber).isStatus()) {
                             status = "使用中";
                         } else status = "使用できます";
 
-                        String sendData = listToilets.get(position).getName() + " " + status + listToilets.get(pos).getWaiting() + "人待ち中";
+                        String sendData = listToilets.get(toiletPositionNumber).getName() + " " + status + listToilets.get(toiletPositionNumber).getWaiting() + "人待ち中";
                         intent.putExtra("send", sendData);
                         startActivity(intent);
                         Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);

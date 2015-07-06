@@ -3,11 +3,13 @@ package com.example.android.toiletbooking.activity;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import com.example.android.toiletbooking.fragment.MenToilets;
 import com.example.android.toiletbooking.fragment.WomenToilets;
@@ -20,7 +22,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     ViewPager mViewPager;
 
-
+    Handler mHandler;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        this.mHandler = new Handler();
+        m_Runnable.run();
+
     }
 
     @Override
@@ -64,6 +70,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
+    private final Runnable m_Runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
+
+            MainActivity.this.mHandler.postDelayed(m_Runnable,20000);
+        }
+
+    };
+
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -73,12 +91,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    return new MenToilets();
-                default:
-                    return new WomenToilets();
-            }
+            return new WomenToilets();
         }
 
         @Override
@@ -88,7 +101,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "LIST " + (position + 1);
+            switch (position) {
+                case 1:
+                    return "WOMAN TOILETS";
+                default:
+                    return "MEN TOILETS";
+            }
+
         }
     }
 
