@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import com.example.android.toiletbooking.fragment.MenToilets;
 import com.example.android.toiletbooking.fragment.WomenToilets;
 import com.example.android.toiletbooking.R;
 
