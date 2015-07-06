@@ -2,6 +2,7 @@ package com.example.android.toiletbooking.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -54,17 +55,14 @@ public class WaitingFormActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 TextView textView = (TextView) view;
                 TextView selectedItem = (TextView) findViewById(R.id.selected_item);
-                StringBuilder sb = new StringBuilder();
-                sb.append("parent=").append(parent.getClass().getSimpleName())
-                        .append(" position=").append(pos).append(" id=").append(id)
-                        .append(" textView.getText()=").append(textView.getText());
+//                StringBuilder sb = new StringBuilder();
+//                sb.append("parent=").append(parent.getClass().getSimpleName())
+//                        .append(" position=").append(pos).append(" id=").append(id)
+//                        .append(" textView.getText()=").append(textView.getText());
+//                Toast.makeText(getApplicationContext(), sb.toString(), Toast.LENGTH_SHORT).show();
 
                 Spinner spinner = (Spinner) parent;
                 selectedItem.setText(textView.getText());
-
-                // 選択されたアイテムのテキストを取得
-                Toast.makeText(getApplicationContext(), sb.toString(),
-                        Toast.LENGTH_SHORT).show();
             }
 
             //unused
@@ -81,12 +79,13 @@ public class WaitingFormActivity extends Activity {
             case WANT_TO_BOOKING:
                 status = BOOKED;
                 receiveData.setWaiting(receiveData.getWaiting()+1);
+                alert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
                 alert.setTitle("並びました!").setMessage("あなたは"+receiveData.getWaiting()+"番目です").show();
                 sendToiletStatus();
-  //              finish();
-//                Intent intent = new Intent(WaitingFormActivity.this,MyCounter.class);
-//                finish();
-//                startActivity(intent);
                 break;
             case RESQUEST_SEND_NOTI_AFTER:
                 finish();

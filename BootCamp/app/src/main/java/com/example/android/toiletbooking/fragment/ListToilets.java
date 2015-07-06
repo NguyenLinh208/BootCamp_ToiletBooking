@@ -2,6 +2,7 @@ package com.example.android.toiletbooking.fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,8 +32,8 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
 
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
-    private List<GridViewItem> mItems;    // GridView items list
-    private GridViewAdapter mAdapter;    // GridView adapter
+    private List<GridViewItem> mItems;
+    private GridViewAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                 mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), title));
             }
         }
-
     }
 
     @Override
@@ -79,11 +79,10 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // retrieve the GridView item
         GridViewItem item = mItems.get(position);
-        int pos = position;
-        int toiletPositionNumber = pos - pos/4  -1;
-        int check = pos%4;
+      //  int pos = position;
+        int toiletPositionNumber = position - position/4  -1;
+        int check = position%4;
         Resources resources = getResources();
         //Floorの位置の場合
         switch (check) {
@@ -94,9 +93,10 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                 switch (listToilets.get(toiletPositionNumber).getWaiting()) {
                     case (0):{
                         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-                        listToilets.get(toiletPositionNumber).setStatus(true);
+                       // listToilets.get(toiletPositionNumber).setStatus(true);
                        // mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), listToilets.get(toiletPositionNumber).toString())));
                         listToilets.get(toiletPositionNumber).setStatus(true);
+                        listToilets.get(toiletPositionNumber).setWaiting(listToilets.get(toiletPositionNumber).getWaiting() + 1);
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
                         // showDialog("確認画面", "予約でよろしいですか？", 1);
