@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.android.toiletbooking.R;
 import com.example.android.toiletbooking.activity.WaitingActivity;
 import com.example.android.toiletbooking.activity.WaitingFormActivity;
@@ -41,50 +42,75 @@ import org.json.JSONObject;
 public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener{
 
-    ArrayList<Toilet> listToilets = new ArrayList<>();
+    public ArrayList <Toilet> listToilets = new ArrayList<>();
     TextView textView;
     private List<GridViewItem> mItems;
     private GridViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    String url = "http://192.168.1.3/return_toilet_json.php";
+
+    String url = "http://192.168.1.2/return_toilet_json.php";
     RequestQueue queue = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // initialize the items list
         mItems = new ArrayList<GridViewItem>();
+
         queue = Volley.newRequestQueue(getActivity());
 
         //非同期 json request
-        String api_url = "http://www.bluecode.jp/test/getMembers.php";
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, (JSONObject) null,
-                new Response.Listener<JSONObject>() {
-                    Resources resources = getResources();
-
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, (JSONArray)null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject jsonObject) {
+                    public void onResponse(JSONArray jsonArray) {
+                        Resources resources = getResources();
+                        String json = jsonArray.toString();
+                        convertStandardJSONString(json);
+
                         try {
-                            JSONObject json = new JSONObject("");
-                            for (int i = 0; i < json.length(); i++) {
-                                String toilet_name = json.getString("toire_name");
-                                String toilet_id = json.getString("toire_id");
-                                String toilet_status = json.getString("toire_status");
-                                String toilet_human = json.getString("toire_human");
+                            JSONArray array = new JSONArray(json);
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                JSONObject toiletObject = array.getJSONObject(i);
+
+                                Log.v("test", toiletObject.toString());
+
+                                String toilet_id = toiletObject.getString("toire_id");
+
+                                String toilet_name = toiletObject.getString("toire_name");
+
+                                String toilet_status = toiletObject.getString("toire_status");
+
+                                String toilet_human = toiletObject.getString("toire_human");
+
                                 Toilet toilet = new Toilet();
+
                                 toilet.setName(toilet_name);
+
                                 toilet.setNumber(toilet_id);
+
                                 if (Integer.parseInt(toilet_status) == 0) {
                                     toilet.setStatus(false);
                                 } else toilet.setStatus(true);
 
                                 toilet.setWaiting(Integer.parseInt(toilet_human));
+
                                 listToilets.add(toilet);
+                                    // Log.v("test", listToilets.toString());
+                                String waiting = Integer.toString(toilet.getWaiting());
+                                String title = toilet.getName();
+
+                                if (toilet.isStatus()) {
+                                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting));
+                                } else {
+                                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title, waiting));
+                                }
                             }
-
                         } catch (JSONException e) {
-
+                            Log.e("volley", e.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 },
@@ -97,31 +123,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                 }
         );
 
-
         queue.add(jsonRequest);
-
-
-//                    for( int i = 1; i<=10; i++) {
-//                        mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i + "階", ""));
-//                        for (int j = 1; j <= 3; j++) {
-//                            Toilet toilet = new Toilet();
-//                            toilet.setName("WC" + j);
-//                            toilet.setNumber(Integer.toString(j));
-//                            toilet.setFloor(i);
-//                            toilet.setStatus(getRandomBoolean());
-//                            if (toilet.isStatus()) {
-//                                toilet.setWaiting(2);
-//                            } else toilet.setWaiting(0);
-//                            listToilets.add(toilet);
-//                            String title = toilet.getName();
-//                            String waiting = Integer.toString(toilet.getWaiting());
-//                            if (toilet.isStatus()) {
-//                                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting));
-//                            } else {
-//                                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title, waiting));
-//                            }
-//                        }
-//                    }
     }
 
     @Override
@@ -133,7 +135,6 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         mSwipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipelayout);
         // initialize the adapter
         mAdapter = new GridViewAdapter(getActivity(), mItems,listToilets);
-
         // initialize the GridView
         GridView gridView = (GridView) fragmentView.findViewById(R.id.gridView);
         gridView.setAdapter(mAdapter);
@@ -149,41 +150,32 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         GridViewItem item = mItems.get(position);
       //  int pos = position;
-        int toiletPositionNumber = position - position/4  -1;
+        int toiletPositionNumber = position;
         int check = position%4;
         int thisWaiting = listToilets.get(toiletPositionNumber).getWaiting();
         String title = listToilets.get(toiletPositionNumber).toString();
         Resources resources = getResources();
         //Floorの位置の場合
-        switch (check) {
-            case (0): {
+
+        switch (listToilets.get(toiletPositionNumber).getWaiting()) {
+            case (0):{
+                Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
+                String waiting = Integer.toString(thisWaiting + 1);
+                mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
+                listToilets.get(toiletPositionNumber).setStatus(true);
+                Intent intent = new Intent(getActivity(), MyCounter.class);
+                startActivity(intent);
                 break;
             }
-            default: {
-                switch (listToilets.get(toiletPositionNumber).getWaiting()) {
-                    case (0):{
-                        Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-
-                        String waiting = Integer.toString(thisWaiting + 1);
-
-                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
-                        listToilets.get(toiletPositionNumber).setStatus(true);
-                        Intent intent = new Intent(getActivity(), MyCounter.class);
-                        startActivity(intent);
-                        // showDialog("確認画面", "予約でよろしいですか？", 1);
-                        break;
-                     }
-                    default:{
-                        listToilets.get(toiletPositionNumber).setWaiting(thisWaiting + 1);
-                        String waiting = Integer.toString(thisWaiting + 1);
-                        Intent intent = new Intent(getActivity(), WaitingActivity.class);
-                        Toilet sendData = listToilets.get(toiletPositionNumber);
-                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
-                        intent.putExtra("send", sendData);
-                        startActivity(intent);
-                        Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
-                    }
-                 }
+            default:{
+                listToilets.get(toiletPositionNumber).setWaiting(thisWaiting + 1);
+                String waiting = Integer.toString(thisWaiting + 1);
+                Intent intent = new Intent(getActivity(), WaitingActivity.class);
+                Toilet sendData = listToilets.get(toiletPositionNumber);
+                mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
+                intent.putExtra("send", sendData);
+                startActivity(intent);
+                Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);
             }
         }
         mAdapter.notifyDataSetChanged();
@@ -232,4 +224,11 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         return random.nextBoolean();
     }
 
+    public String convertStandardJSONString(String data_json){
+        data_json = data_json.replace("\\", "");
+        data_json = data_json.replace("\"{", "{");
+        data_json = data_json.replace("}\",", "},");
+        data_json = data_json.replace("}\"", "}");
+        return data_json;
+    }
 }

@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:columnWidth="80dp"
-            android:numColumns="4"
+            android:numColumns="3"
             android:verticalSpacing="10dp"
             android:horizontalSpacing="1dp"
             android:stretchMode="columnWidth"

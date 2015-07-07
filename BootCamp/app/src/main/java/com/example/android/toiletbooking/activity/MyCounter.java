@@ -32,8 +32,9 @@ public class MyCounter extends Activity{
         myHandler.postDelayed(updateTimerMethod, 0);
         this.setFinishOnTouchOutside(false);
         alert = new AlertDialog.Builder(MyCounter.this);
-
     }
+
+
     public void onClickCancelButton(View view){
        finish();
     }
