@@ -2,11 +2,6 @@
     android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!--
-    This title strip will display the currently visible page title, as well as the page
-    titles for adjacent pages.
-    -->
     <android.support.v4.view.PagerTitleStrip
         android:id="@+id/pager_title_strip"
         android:layout_width="match_parent"
@@ -18,4 +13,4 @@
         android:paddingBottom="4dp" />
 
 </android.support.v4.view.ViewPager>
-<!-- From: file:/Users/usr0200475/BootCamp_ToiletBooking/BootCamp_ToiletBooking/BootCamp/app/src/main/res/layout/activity_collection_demo.xml -->
+<!-- From: file:/Users/usr0200475/BootCamp_ToiletBooking/BootCamp/app/src/main/res/layout/activity_collection_demo.xml -->

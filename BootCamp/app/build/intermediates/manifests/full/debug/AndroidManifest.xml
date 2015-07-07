@@ -11,7 +11,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
+        android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.example.android.toiletbooking.activity.MainActivity"
             android:label="@string/app_name" >
@@ -22,15 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.android.toiletbooking.activity.CollectionDemoActivity"
-            android:label="@string/demo_collection" />
-        <activity
-            android:name="com.example.android.toiletbooking.activity.BookForm"
-            android:label="入力画面"
+            android:name="com.example.android.toiletbooking.activity.WaitingFormActivity"
+            android:label="待ち人数"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name="com.example.android.toiletbooking.activity.MyCounter"
-            android:label="Counter"
+            android:label="@string/finish"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
     </application>
 

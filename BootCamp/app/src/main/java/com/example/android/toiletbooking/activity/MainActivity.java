@@ -45,15 +45,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         });
 
         for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+            if ( i == 0){
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
+                            .setIcon(R.drawable.male)
                             .setTabListener(this));
+            }
+            if ( i == 1){
+                actionBar.addTab(
+                        actionBar.newTab()
+                                .setText(mAppSectionsPagerAdapter.getPageTitle(i))
+                                .setIcon(R.drawable.female)
+                                .setTabListener(this));
+            }
+
+
         }
 
-        this.mHandler = new Handler();
-        refresh.run();
-        mHandler.postDelayed(refresh,500);
+//        this.mHandler = new Handler();
+//        refresh.run();
+//        mHandler.postDelayed(refresh,500);
 
     }
 
@@ -70,15 +82,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
-    private final Runnable refresh = new Runnable()
-    {
-        public void run()
-
-        {
-           Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
-           // MainActivity.this.mHandler.postDelayed(refresh,500);
-        }
-    };
+//    private final Runnable refresh = new Runnable()
+//    {
+//        public void run()
+//
+//        {
+//           Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
+//           // MainActivity.this.mHandler.postDelayed(refresh,500);
+//        }
+//    };
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -100,12 +112,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 1:
-                    return "WOMAN TOILETS";
+                    return "WOMEN";
                 default:
-                    return "MEN TOILETS";
+                    return "MEN";
             }
-
         }
+
+
     }
 
 }

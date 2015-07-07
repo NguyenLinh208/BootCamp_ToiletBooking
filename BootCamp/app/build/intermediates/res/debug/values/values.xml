@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/usr0200475/BootCamp_ToiletBooking/BootCamp_ToiletBooking/BootCamp/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/usr0200475/BootCamp_ToiletBooking/BootCamp/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string-array name="action">
         <item>並ぶ</item>
         <item>開いている時通知</item>
     </string-array>
-    <string name="app_name">Toilet Booking</string>
+    <string name="active">使用中</string>
+    <string name="alert">3分以内行ってください！</string>
+    <string name="app_name">GMO WC</string>
     <string name="booking">予約</string>
     <string name="cancel">キャンセル</string>
-    <string name="demo_collection">Demo Collection</string>
-    <string name="demo_external_activity">Demo External Activity</string>
-    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
     <string name="empty">使用中</string>
+    <string name="explain">トイレ選択後3分以内行ってください!</string>
+    <string name="finish">予約完了</string>
     <string name="input_title">このトイルは使用中です。</string>
     <string name="isUsing">使用中</string>
     <string name="ok">はい</string>
     <string name="option">オプション</string>
+    <string name="passive">使用可能</string>
     <string name="status">状況</string>
 </resources>

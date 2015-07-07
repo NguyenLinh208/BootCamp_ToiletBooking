@@ -4,23 +4,44 @@
     android:layout_height="match_parent"
     tools:context=".GridViewFragment" >
     <LinearLayout
-        android:id="@+id/explain"
+        android:id="@+id/status"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:paddingLeft="40dp"
+        android:gravity="center"
         android:orientation="horizontal">
-        <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/darker_gray"/>
+            android:background="@drawable/ic_toilet_active"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用中"
+            android:text="@string/active"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_toilet_passive"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passive"
             android:layout_gravity="center_vertical"
             android:paddingLeft="5dp"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/explain"
+        android:layout_below="@id/status"
+        android:layout_width="fill_parent"
+        android:text="@string/explain"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"/>
 
     <View
         android:layout_below="@+id/explain"

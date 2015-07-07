@@ -50,20 +50,25 @@ public class MyCounter extends Activity{
                     + String.format("%02d", seconds));
             myHandler.postDelayed(this, 0);
             if (timeInMillies > timeLimit){
-                StopCounter();
+                onStopCounter();
             }
         }
     };
 
-    public void StopCounter(){
+    public void onStopCounter(){
         myHandler.removeCallbacks(updateTimerMethod);
-        alert.setNeutralButton("SKIP", new DialogInterface.OnClickListener() {
+        alert.setNeutralButton(R.string.in_problem_rebook, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                onBackPressed();
+            }
+        });
+        alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 onBackPressed();
             }
         });
         if (! (MyCounter.this).isFinishing()) {
-            alert.setTitle("警告").setMessage("時間切れです").show();
+            alert.setTitle(R.string.finish_booking).setMessage(R.string.problem).show();
         }
 
     }
