@@ -25,27 +25,30 @@ public final class R {
     public static final class id {
         public static final int cancel_button=0x7f060004;
         public static final int explain=0x7f060008;
-        public static final int gridView=0x7f060009;
+        public static final int gridView=0x7f06000b;
         public static final int input_form_title=0x7f060000;
-        public static final int ivIcon=0x7f06000b;
+        public static final int ivIcon=0x7f06000d;
         public static final int pager=0x7f060005;
         public static final int pager_title_strip=0x7f060006;
         public static final int selected_item=0x7f060002;
         public static final int send_button=0x7f060003;
         public static final int spinner1=0x7f060001;
         public static final int status=0x7f060007;
-        public static final int textTimer=0x7f06000d;
-        public static final int tvTitle=0x7f06000c;
-        public static final int tvWaiting=0x7f06000a;
+        public static final int swipelayout=0x7f06000a;
+        public static final int textTimer=0x7f06000f;
+        public static final int tvTitle=0x7f06000e;
+        public static final int tvWaiting=0x7f06000c;
+        public static final int view=0x7f060009;
     }
     public static final class layout {
         public static final int activity_book_form=0x7f030000;
         public static final int activity_collection_demo=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int fragment_collection_object=0x7f030003;
-        public static final int fragment_list_toilet=0x7f030004;
-        public static final int gridview_item=0x7f030005;
-        public static final int timer=0x7f030006;
+        public static final int activity_waiting=0x7f030003;
+        public static final int fragment_collection_object=0x7f030004;
+        public static final int fragment_list_toilet=0x7f030005;
+        public static final int gridview_item=0x7f030006;
+        public static final int timer=0x7f030007;
     }
     public static final class string {
         public static final int active=0x7f050000;
@@ -56,11 +59,14 @@ public final class R {
         public static final int empty=0x7f050005;
         public static final int explain=0x7f050006;
         public static final int finish=0x7f050007;
-        public static final int input_title=0x7f050008;
-        public static final int isUsing=0x7f050009;
-        public static final int ok=0x7f05000a;
-        public static final int option=0x7f05000b;
-        public static final int passive=0x7f05000c;
-        public static final int status=0x7f05000d;
+        public static final int finish_booking=0x7f050008;
+        public static final int in_problem_rebook=0x7f050009;
+        public static final int input_title=0x7f05000a;
+        public static final int isUsing=0x7f05000b;
+        public static final int ok=0x7f05000c;
+        public static final int option=0x7f05000d;
+        public static final int passive=0x7f05000e;
+        public static final int problem=0x7f05000f;
+        public static final int status=0x7f050010;
     }
 }

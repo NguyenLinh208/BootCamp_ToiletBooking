@@ -24,6 +24,10 @@
             android:label="待ち人数"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
+            android:name=".activity.WaitingActivity"
+            android:label="待ち人数"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
             android:name="com.example.android.toiletbooking.activity.MyCounter"
             android:label="@string/finish"
             android:theme="@android:style/Theme.Holo.Light.Dialog"/>

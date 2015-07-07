@@ -58,7 +58,7 @@ ADDED from AndroidManifest.xml:22:9
 		ADDED from AndroidManifest.xml:25:13
 	android:name
 		ADDED from AndroidManifest.xml:23:13
-activity#com.example.android.toiletbooking.activity.MyCounter
+activity#com.example.android.toiletbooking.activity.WaitingActivity
 ADDED from AndroidManifest.xml:26:9
 	android:label
 		ADDED from AndroidManifest.xml:28:13
@@ -66,3 +66,11 @@ ADDED from AndroidManifest.xml:26:9
 		ADDED from AndroidManifest.xml:29:13
 	android:name
 		ADDED from AndroidManifest.xml:27:13
+activity#com.example.android.toiletbooking.activity.MyCounter
+ADDED from AndroidManifest.xml:30:9
+	android:label
+		ADDED from AndroidManifest.xml:32:13
+	android:theme
+		ADDED from AndroidManifest.xml:33:13
+	android:name
+		ADDED from AndroidManifest.xml:31:13

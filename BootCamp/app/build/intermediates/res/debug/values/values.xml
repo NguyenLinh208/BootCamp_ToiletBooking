@@ -14,10 +14,13 @@
     <string name="empty">使用中</string>
     <string name="explain">トイレ選択後3分以内行ってください!</string>
     <string name="finish">予約完了</string>
+    <string name="finish_booking">予約が終了しました</string>
+    <string name="in_problem_rebook">再度予約</string>
     <string name="input_title">このトイルは使用中です。</string>
     <string name="isUsing">使用中</string>
     <string name="ok">はい</string>
     <string name="option">オプション</string>
     <string name="passive">使用可能</string>
+    <string name="problem">横入りがあった場合、ボタンを押してください。</string>
     <string name="status">状況</string>
 </resources>
