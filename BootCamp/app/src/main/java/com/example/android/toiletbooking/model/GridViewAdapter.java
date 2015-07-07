@@ -70,18 +70,19 @@ public class GridViewAdapter extends BaseAdapter {
         viewHolder.ivIcon.setImageDrawable(item.icon);
         viewHolder.tvTitle.setText(item.title);
 
-        int toiletPositionNumber = position;
-        if (position >= 4) {
-            toiletPositionNumber = position - position / 4 - 1;
-        }
-        int color = 0x00FFFFFF; // Transparent
-        if ( position%4 == 0) {
-            color = 0x00FFFFFF;
-        } else  if (listToilets.get(toiletPositionNumber).isStatus()) {
-            color = Color.GRAY; // Opaque Blue
-        }
-
-        convertView.setBackgroundColor(color);
+//
+//        int toiletPositionNumber = position;
+//        if (position >= 4) {
+//            toiletPositionNumber = position - position / 4 - 1;
+//        }
+//        int color = 0x00FFFFFF; // Transparent
+//        if ( position%4 == 0) {
+//            color = 0x00FFFFFF;
+//        } else  if (listToilets.get(toiletPositionNumber).isStatus()) {
+//            color = Color.GRAY; // Opaque Blue
+//        }
+//
+//        convertView.setBackgroundColor(color);
 
         return convertView;
     }

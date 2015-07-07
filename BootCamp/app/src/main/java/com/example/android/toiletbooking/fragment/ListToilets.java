@@ -55,7 +55,11 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                 } else toilet.setWaiting(0);
                 listToilets.add(toilet);
                 String title = toilet.getName() + "-" + toilet.getWaiting() + "人待ち";
-                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet), title));
+                if (toilet.isStatus()) {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title));
+                } else {
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title));
+                }
             }
         }
     }
@@ -94,9 +98,9 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                     case (0):{
                         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
                        // listToilets.get(toiletPositionNumber).setStatus(true);
-                       // mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_using), listToilets.get(toiletPositionNumber).toString())));
+                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), listToilets.get(toiletPositionNumber).toString())));
                         listToilets.get(toiletPositionNumber).setStatus(true);
-                        listToilets.get(toiletPositionNumber).setWaiting(listToilets.get(toiletPositionNumber).getWaiting() + 1);
+                        //istToilets.get(toiletPositionNumber).setWaiting(listToilets.get(toiletPositionNumber).getWaiting() + 1);
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
                         // showDialog("確認画面", "予約でよろしいですか？", 1);
