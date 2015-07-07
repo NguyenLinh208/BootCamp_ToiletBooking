@@ -8,9 +8,10 @@ import android.graphics.drawable.Drawable;
 public class GridViewItem {
     public Drawable icon;       // the drawable for the ListView item ImageView
     public String title;        // the text for the GridView item title
-
-    public GridViewItem(Drawable icon, String title) {
+    public String waiting;
+    public GridViewItem(Drawable icon, String title, String waiting ) {
         this.icon = icon;
         this.title = title;
+        this.waiting = waiting;
     }
 }

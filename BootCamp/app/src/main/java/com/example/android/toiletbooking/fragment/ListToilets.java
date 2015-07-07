@@ -43,7 +43,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         mItems = new ArrayList<GridViewItem>();
         Resources resources = getResources();
         for (int i = 1; i <= 10; i++) {
-            mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階"));
+            mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階", ""));
             for (int j = 1; j <= 3; j++) {
                 Toilet toilet = new Toilet();
                 toilet.setName("WC" + j);
@@ -54,11 +54,12 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                     toilet.setWaiting(2);
                 } else toilet.setWaiting(0);
                 listToilets.add(toilet);
-                String title = toilet.getName() + "-" + toilet.getWaiting() + "人待ち";
+                String title = toilet.getName();
+                String waiting = Integer.toString(toilet.getWaiting());
                 if (toilet.isStatus()) {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title));
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting));
                 } else {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title));
+                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title,waiting));
                 }
             }
         }
@@ -87,6 +88,8 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
       //  int pos = position;
         int toiletPositionNumber = position - position/4  -1;
         int check = position%4;
+        int thisWaiting = listToilets.get(toiletPositionNumber).getWaiting();
+        String title = listToilets.get(toiletPositionNumber).toString();
         Resources resources = getResources();
         //Floorの位置の場合
         switch (check) {
@@ -97,10 +100,11 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                 switch (listToilets.get(toiletPositionNumber).getWaiting()) {
                     case (0):{
                         Toast.makeText(getActivity(), item.title, Toast.LENGTH_SHORT).show();
-                       // listToilets.get(toiletPositionNumber).setStatus(true);
-                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), listToilets.get(toiletPositionNumber).toString())));
+
+                        String waiting = Integer.toString(thisWaiting + 1);
+
+                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active),title,waiting)));
                         listToilets.get(toiletPositionNumber).setStatus(true);
-                        //istToilets.get(toiletPositionNumber).setWaiting(listToilets.get(toiletPositionNumber).getWaiting() + 1);
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
                         // showDialog("確認画面", "予約でよろしいですか？", 1);
@@ -109,6 +113,11 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                     default:{
                         Intent intent = new Intent(getActivity(), WaitingFormActivity.class);
                         Toilet sendData = listToilets.get(toiletPositionNumber);
+
+                        listToilets.get(toiletPositionNumber).setWaiting(thisWaiting + 1);
+                        String waiting = Integer.toString(thisWaiting + 1);
+
+                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
                         intent.putExtra("send", sendData);
                         startActivity(intent);
                         Log.d(getTag(), "onListItemClick position => " + position + " : id => " + id);

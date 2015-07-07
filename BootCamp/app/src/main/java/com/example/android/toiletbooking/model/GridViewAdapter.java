@@ -59,6 +59,7 @@ public class GridViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            viewHolder.tvWaiting = (TextView) convertView.findViewById(R.id.tvWaiting);
             convertView.setTag(viewHolder);
         } else {
             // recycle the already inflated view
@@ -69,6 +70,7 @@ public class GridViewAdapter extends BaseAdapter {
         GridViewItem item = mItems.get(position);
         viewHolder.ivIcon.setImageDrawable(item.icon);
         viewHolder.tvTitle.setText(item.title);
+        viewHolder.tvWaiting.setText(item.waiting);
 
 //
 //        int toiletPositionNumber = position;
@@ -94,5 +96,6 @@ public class GridViewAdapter extends BaseAdapter {
     private static class ViewHolder {
         ImageView ivIcon;
         TextView tvTitle;
+        TextView tvWaiting;
     }
 }

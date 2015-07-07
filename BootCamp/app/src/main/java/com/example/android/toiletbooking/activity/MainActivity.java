@@ -45,10 +45,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         });
 
         for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+            if ( i == 0){
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
+                            .setIcon(R.drawable.male)
                             .setTabListener(this));
+            }
+            if ( i == 1){
+                actionBar.addTab(
+                        actionBar.newTab()
+                                .setText(mAppSectionsPagerAdapter.getPageTitle(i))
+                                .setIcon(R.drawable.female)
+                                .setTabListener(this));
+            }
+
+
         }
 
         this.mHandler = new Handler();
@@ -100,12 +112,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 1:
-                    return "WOMAN TOILETS";
+                    return "WOMEN";
                 default:
-                    return "MEN TOILETS";
+                    return "MEN";
             }
-
         }
+
+
     }
 
 }
