@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.android.toiletbooking.R;
 import com.example.android.toiletbooking.activity.WaitingActivity;
 import com.example.android.toiletbooking.activity.WaitingFormActivity;
@@ -22,22 +21,31 @@ import com.example.android.toiletbooking.activity.MyCounter;
 import com.example.android.toiletbooking.model.GridViewAdapter;
 import com.example.android.toiletbooking.model.GridViewItem;
 import com.example.android.toiletbooking.model.Toilet;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by usr0200475 on 15/06/29.
  */
 public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener,Response.Listener<JSONObject>, Response.ErrorListener{
 
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
     private List<GridViewItem> mItems;
     private GridViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    String url = "http://192.168.1.3/return_toilet_json.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +119,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
 
                         String waiting = Integer.toString(thisWaiting + 1);
 
-                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active),title,waiting)));
+                        mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
                         listToilets.get(toiletPositionNumber).setStatus(true);
                         Intent intent = new Intent(getActivity(), MyCounter.class);
                         startActivity(intent);
@@ -131,6 +139,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                  }
             }
         }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -176,4 +185,9 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         return random.nextBoolean();
     }
 
+    public void reload(){
+        String url = "http://157.7.122.113/posts/index.json";
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,url,this,this);
+        queue.add(req);
+    }
 }
