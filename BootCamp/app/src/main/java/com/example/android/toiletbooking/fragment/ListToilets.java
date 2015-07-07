@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +29,14 @@ import java.util.Random;
 /**
  * Created by usr0200475 on 15/06/29.
  */
-public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener{
+public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener{
 
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
     private List<GridViewItem> mItems;
     private GridViewAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         // inflate the root view of the fragment
         View fragmentView = inflater.inflate(R.layout.fragment_list_toilet, container, false);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipelayout);
         // initialize the adapter
         mAdapter = new GridViewAdapter(getActivity(), mItems,listToilets);
 
@@ -78,6 +82,9 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         GridView gridView = (GridView) fragmentView.findViewById(R.id.gridView);
         gridView.setAdapter(mAdapter);
         gridView.setOnItemClickListener(this);
+
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         return fragmentView;
     }
@@ -125,6 +132,19 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                  }
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        // 更新処理を実装する
+        // ここでは単純に2秒後にインジケータ非表示
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // 更新が終了したらインジケータ非表示
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 
     public void showDialog(String title, String message, int type){
