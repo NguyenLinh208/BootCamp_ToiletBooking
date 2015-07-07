@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ import org.json.JSONObject;
  * Created by usr0200475 on 15/06/29.
  */
 public class ListToilets extends Fragment implements DialogListener,AdapterView.OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener,Response.Listener<JSONObject>, Response.ErrorListener{
+        SwipeRefreshLayout.OnRefreshListener{
 
     ArrayList<Toilet> listToilets = new ArrayList<>();
     TextView textView;
@@ -46,6 +47,7 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
     private GridViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     String url = "http://192.168.1.3/return_toilet_json.php";
+    RequestQueue queue = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,28 +55,73 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
 
         // initialize the items list
         mItems = new ArrayList<GridViewItem>();
-        Resources resources = getResources();
-        for (int i = 1; i <= 10; i++) {
-            mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i+"階", ""));
-            for (int j = 1; j <= 3; j++) {
-                Toilet toilet = new Toilet();
-                toilet.setName("WC" + j);
-                toilet.setNumber(Integer.toString(j));
-                toilet.setFloor(i);
-                toilet.setStatus(getRandomBoolean());
-                if (toilet.isStatus()) {
-                    toilet.setWaiting(2);
-                } else toilet.setWaiting(0);
-                listToilets.add(toilet);
-                String title = toilet.getName();
-                String waiting = Integer.toString(toilet.getWaiting());
-                if (toilet.isStatus()) {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting));
-                } else {
-                    mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title,waiting));
+        queue = Volley.newRequestQueue(getActivity());
+
+        //非同期 json request
+        String api_url = "http://www.bluecode.jp/test/getMembers.php";
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, (JSONObject) null,
+                new Response.Listener<JSONObject>() {
+                    Resources resources = getResources();
+
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            JSONObject json = new JSONObject("");
+                            for (int i = 0; i < json.length(); i++) {
+                                String toilet_name = json.getString("toire_name");
+                                String toilet_id = json.getString("toire_id");
+                                String toilet_status = json.getString("toire_status");
+                                String toilet_human = json.getString("toire_human");
+                                Toilet toilet = new Toilet();
+                                toilet.setName(toilet_name);
+                                toilet.setNumber(toilet_id);
+                                if (Integer.parseInt(toilet_status) == 0) {
+                                    toilet.setStatus(false);
+                                } else toilet.setStatus(true);
+
+                                toilet.setWaiting(Integer.parseInt(toilet_human));
+                                listToilets.add(toilet);
+                            }
+
+                        } catch (JSONException e) {
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d("Volley", volleyError.getMessage());
+                        volleyError.printStackTrace();
+                    }
                 }
-            }
-        }
+        );
+
+
+        queue.add(jsonRequest);
+
+
+//                    for( int i = 1; i<=10; i++) {
+//                        mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_floor), i + "階", ""));
+//                        for (int j = 1; j <= 3; j++) {
+//                            Toilet toilet = new Toilet();
+//                            toilet.setName("WC" + j);
+//                            toilet.setNumber(Integer.toString(j));
+//                            toilet.setFloor(i);
+//                            toilet.setStatus(getRandomBoolean());
+//                            if (toilet.isStatus()) {
+//                                toilet.setWaiting(2);
+//                            } else toilet.setWaiting(0);
+//                            listToilets.add(toilet);
+//                            String title = toilet.getName();
+//                            String waiting = Integer.toString(toilet.getWaiting());
+//                            if (toilet.isStatus()) {
+//                                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting));
+//                            } else {
+//                                mItems.add(new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_passive), title, waiting));
+//                            }
+//                        }
+//                    }
     }
 
     @Override
@@ -185,9 +232,4 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
         return random.nextBoolean();
     }
 
-    public void reload(){
-        String url = "http://157.7.122.113/posts/index.json";
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,url,this,this);
-        queue.add(req);
-    }
 }
