@@ -21,12 +21,12 @@
 
         <activity
             android:name=".activity.WaitingFormActivity"
-            android:label="入力画面"
+            android:label="待ち人数"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name="com.example.android.toiletbooking.activity.MyCounter"
             android:label="@string/finish"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+            android:theme="@android:style/Theme.Holo.Light.Dialog"/>
 
     </application>
 </manifest>

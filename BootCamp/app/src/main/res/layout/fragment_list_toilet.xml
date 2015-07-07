@@ -40,7 +40,8 @@
         android:layout_width="fill_parent"
         android:text="@string/explain"
         android:gravity="center"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"/>
 
     <View
         android:layout_below="@+id/explain"
