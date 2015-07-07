@@ -63,9 +63,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         }
 
-        this.mHandler = new Handler();
-        refresh.run();
-        mHandler.postDelayed(refresh,500);
+//        this.mHandler = new Handler();
+//        refresh.run();
+//        mHandler.postDelayed(refresh,500);
 
     }
 
@@ -82,15 +82,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
-    private final Runnable refresh = new Runnable()
-    {
-        public void run()
-
-        {
-           Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
-           // MainActivity.this.mHandler.postDelayed(refresh,500);
-        }
-    };
+//    private final Runnable refresh = new Runnable()
+//    {
+//        public void run()
+//
+//        {
+//           Toast.makeText(MainActivity.this,"in runnable", Toast.LENGTH_SHORT).show();
+//           // MainActivity.this.mHandler.postDelayed(refresh,500);
+//        }
+//    };
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 

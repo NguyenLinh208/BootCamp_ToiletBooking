@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.toiletbooking.R;
+import com.example.android.toiletbooking.activity.WaitingActivity;
 import com.example.android.toiletbooking.activity.WaitingFormActivity;
 import com.example.android.toiletbooking.activity.MyCounter;
 import com.example.android.toiletbooking.model.GridViewAdapter;
@@ -118,12 +119,10 @@ public class ListToilets extends Fragment implements DialogListener,AdapterView.
                         break;
                      }
                     default:{
-                        Intent intent = new Intent(getActivity(), WaitingFormActivity.class);
-                        Toilet sendData = listToilets.get(toiletPositionNumber);
-
                         listToilets.get(toiletPositionNumber).setWaiting(thisWaiting + 1);
                         String waiting = Integer.toString(thisWaiting + 1);
-
+                        Intent intent = new Intent(getActivity(), WaitingActivity.class);
+                        Toilet sendData = listToilets.get(toiletPositionNumber);
                         mItems.set(position, (new GridViewItem(resources.getDrawable(R.drawable.ic_toilet_active), title, waiting)));
                         intent.putExtra("send", sendData);
                         startActivity(intent);
