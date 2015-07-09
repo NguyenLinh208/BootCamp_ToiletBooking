@@ -14,12 +14,15 @@ import java.io.Serializable;
     private String name;
     private int floor;
     private int waiting;
-    public Info(String number, String name, int floor, int waiting) {
+    private String session;
+
+    public Info(String number, String name, int floor, int waiting, String session) {
         super();
         this.number = number;
         this.name = name;
         this.floor = floor;
         this.waiting = waiting;
+        this.session = session;
     }
     public Info() {
         super();
@@ -47,6 +50,14 @@ import java.io.Serializable;
 
     public void setWaiting(int waiting) {
         this.waiting = waiting;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
     }
 
     @Override

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GridViewFragment" >
@@ -14,7 +15,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_toilet_active"/>
+            android:background="@drawable/restroom"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_toilet_passive"/>
+            android:background="@drawable/restroom_active"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,17 +36,27 @@
             android:paddingLeft="5dp"/>
     </LinearLayout>
     <TextView
-        android:id="@+id/explain"
+        android:id="@+id/explain1"
         android:layout_below="@id/status"
         android:layout_width="fill_parent"
-        android:text="@string/explain"
+        android:text="@string/explain1"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/explain2"
+        android:layout_below="@id/explain1"
+        android:layout_width="fill_parent"
+        android:text="@string/explain2"
+        android:textColor="@android:color/holo_red_light"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"/>
 
     <View
         android:id="@+id/view"
-        android:layout_below="@+id/explain"
+        android:layout_below="@+id/explain2"
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:background="@android:color/holo_orange_dark"/>

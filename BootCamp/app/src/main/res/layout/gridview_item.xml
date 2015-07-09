@@ -5,11 +5,13 @@
 
     <TextView
         android:id="@+id/tvWaiting"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_green_light"
         android:gravity="center"/>
-    <!-- the parent view -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,23 +19,22 @@
         android:gravity="center"
         android:padding="5dp" >
 
-        <!-- the ImageView for the icon -->
         <ImageView
             android:id="@+id/ivIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:padding="1dp"
             android:contentDescription="TITLE"
             android:scaleType="fitXY"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-        <!--  the TextView for the title -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_below="@id/ivIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:lines="2"
             android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"/>

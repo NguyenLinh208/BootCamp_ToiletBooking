@@ -16,8 +16,8 @@ public class Toilet extends Info implements Serializable {
      */
     private boolean status;
     private static final long serialVersionUID = 1L;
-    public Toilet(String number, String name, int floor, int waiting, boolean status) {
-        super(number,name,floor,waiting);
+    public Toilet(String number, String name, int floor, int waiting, boolean status, String session) {
+        super(number,name,floor,waiting,session);
         this.status = status;
     }
 

@@ -15,9 +15,10 @@
     <string name="isUsing">使用中</string>
     <string name="empty">使用中</string>
     <string name="option">オプション</string>
-    <string name="explain">トイレ選択後3分以内行ってください!</string>
-    <string name="active">使用中</string>
-    <string name="passive">使用可能</string>
+    <string name="explain1">トイレ選択後3分以内行ってください!</string>
+    <string name="explain2">※使用中のトイレでも並ぶことができます!</string>
+    <string name="active">空室</string>
+    <string name="passive">使用中</string>
     <string name="alert">3分以内行ってください！</string>
     <string name="finish">予約完了</string>
     <string name="in_problem_rebook">再度予約</string>

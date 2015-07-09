@@ -14,6 +14,12 @@ import android.widget.Toast;
 import com.example.android.toiletbooking.fragment.ListToilets;
 import com.example.android.toiletbooking.R;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 
@@ -120,5 +126,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 
     }
+
+//    public void setHttpPost(String url) {
+//        HttpPost httpPost = new HttpPost(url);
+//        DefaultHttpClient client = new DefaultHttpClient();
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("title", title);
+//            jsonObject.put("date", dateString);
+//            jsonObject.put("body", body);
+//            StringEntity se = new xStringEntity(jsonObject.toString());
+//            httpPost.setEntity(se);
+//            httpPost.setHeader("Accept", "application/json");
+//            httpPost.setHeader("Content-Type", "application/json");
+//            HttpResponse response = client.execute(httpPost);
+//        }
+//    }
 
 }

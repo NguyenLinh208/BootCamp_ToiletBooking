@@ -22,10 +22,10 @@ import com.example.android.toiletbooking.model.Toilet;
  */
 public class WaitingActivity extends Activity {
 
-    public static final int WANT_TO_BOOKING = 0;
-    public static final int RESQUEST_SEND_NOTI_AFTER = 1;
-    public static final boolean BOOKED = true;
-    public static final boolean WATING = true;
+//    public static final int WANT_TO_BOOKING = 0;
+//    public static final int RESQUEST_SEND_NOTI_AFTER = 1;
+//    public static final boolean BOOKED = true;
+//    public static final boolean WATING = true;
 
     AlertDialog.Builder alert;
     Toilet receiveData;
@@ -45,15 +45,10 @@ public class WaitingActivity extends Activity {
     }
 
     public void onClickCancelButton(View view){
-        finish();
-    }
-
-    public void sendToiletStatus() {
         Bundle bundle = new Bundle();
-        bundle.putString("edttext", "USING");
-        // set Fragmentclass Arguments
-        ListToilets fragobj = new ListToilets();
-        fragobj.setArguments(bundle);
-
+        bundle.putString("cancelFromWaiting", "FromWaiting");
+        ListToilets fragmentObject = new ListToilets();
+        fragmentObject.setArguments(bundle);
+        finish();
     }
 }
